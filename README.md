@@ -2,6 +2,8 @@
 
 
 
-**Project01:** Created a playbook to install apache2 and deploy a static app on AWS EC2 (Managed Nodes).
+PROJECT01: Create a playbook to install apache2 and deploy a static app on AWS EC2 (Managed Nodes).
 
-**Proj01_Using_Roles:** Same as Project01, but executed playbook using Ansible Roles.
+Project01_Using_Roles: Same as Project01 but executed playbook using Ansible Roles.
+
+PROJECT02:  Install Docker on Managed Nodes. (Use Ansible Galaxy and install Roles)
