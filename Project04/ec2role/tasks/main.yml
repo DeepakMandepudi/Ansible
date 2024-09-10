@@ -1,0 +1,21 @@
+---
+# tasks file for ec2role
+- name: Create EC2 instances using public IP address
+  amazon.aws.ec2_instance:
+    name: "{{ item.name }}"
+    instance_type: t2.micro
+    key_name: "Ansible-Project04"
+    security_group: default
+    region: us-east-2
+    aws_access_key: "{{access_key}}"
+    aws_secret_key: "{{secret_key}}"
+    network:
+      assign_public_ip: true
+    image_id: "{{ item.image }}"
+    tags:
+      environment: "{{ item.name }}"
+  loop:
+    - {image: "ami-085f9c64a9b75eed5", name: "ubuntu-1"}
+    - {image: "ami-085f9c64a9b75eed5", name: "ubuntu-2"}
+    - {image: "ami-09efc42336106d2f2", name: "amazon-linux-3"}
+
