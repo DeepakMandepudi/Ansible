@@ -1,0 +1,38 @@
+---
+- hosts: all
+  become: true
+  #gather_facts: false
+
+  tasks:
+    - name: make sure packages openssh and openssl are up-to-date
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - openssh
+        - openssl
+      ignore_errors: yes
+    - name: verify if docker is installed or not.
+      ansible.builtin.command: docker --version
+      register: output
+      ignore_errors: yes
+
+      # used register keyword to store output of task 2 (docker --version) in 'output'.
+      # to print any variable, use debug command.
+
+    - ansible.builtin.debug:
+        var: output
+
+       # using above debug command, we can see the output of task2 and we can see "failed": true.
+       # which means task2 is failed. using this output, I wrote last condition.
+
+       #Now task3 is to install docker if task2 is failed. else no need. so use conditionals
+    - name: Install docker
+      ansible.builtin.apt:
+        name: docker.io
+        state: present
+      when:
+        output.failed
+
+          # so when this condition is met, the install docker. means when op is failed for task2, then install docker.
+          # we can also write output.failed: true or output.failed == true. 
